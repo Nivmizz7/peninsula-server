@@ -119,6 +119,7 @@ cp "$REPO_DIR/config/nginx-peninsula.conf" /etc/nginx/sites-available/peninsula
 rm -f /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 ln -sf /etc/nginx/sites-available/peninsula /etc/nginx/sites-enabled/peninsula
 nginx -t
+systemctl start nginx
 systemctl reload nginx
 
 echo "Installation terminée."
