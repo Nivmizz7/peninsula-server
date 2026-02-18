@@ -4,6 +4,7 @@ const loginForm = document.getElementById("login-form");
 const loginError = document.getElementById("login-error");
 const loginInfo = document.getElementById("login-info");
 const apiUrlInput = document.getElementById("api-url");
+const rememberUrlCheckbox = document.getElementById("remember-url");
 const logoutBtn = document.getElementById("logout-btn");
 const usersTable = document.getElementById("users-table");
 const createForm = document.getElementById("create-form");
@@ -11,6 +12,15 @@ const createError = document.getElementById("create-error");
 
 let apiUrl = "";
 let accessToken = "";
+
+// Charger l'URL sauvegardée au démarrage
+function loadSavedApiUrl() {
+  const savedUrl = localStorage.getItem("peninsula_api_url");
+  if (savedUrl) {
+    apiUrlInput.value = savedUrl;
+    rememberUrlCheckbox.checked = true;
+  }
+}
 
 function showLogin() {
   loginSection.classList.remove("hidden");
@@ -66,6 +76,13 @@ loginForm.addEventListener("submit", async (event) => {
   apiUrl = apiUrlInput.value.trim();
   const username = document.getElementById("login-username").value.trim();
   const password = document.getElementById("login-password").value;
+
+  // Sauvegarder l'URL si la checkbox est cochée
+  if (rememberUrlCheckbox.checked) {
+    localStorage.setItem("peninsula_api_url", apiUrl);
+  } else {
+    localStorage.removeItem("peninsula_api_url");
+  }
 
   try {
     const data = await apiRequest("/v1/auth/login", {
@@ -135,4 +152,6 @@ usersTable.addEventListener("click", async (event) => {
   }
 });
 
+// Charger l'URL sauvegardée au démarrage
+loadSavedApiUrl();
 showLogin();
