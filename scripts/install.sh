@@ -83,6 +83,7 @@ sed -i "s|CORS_ORIGIN=.*|CORS_ORIGIN=*|" .env
 
 npm install --omit=dev
 npm audit fix --force 2>/dev/null || true
+npm ls --depth=0 2>/dev/null
 npm run seed:admin
 
 cp "$REPO_DIR/config/peninsula-api.service" /etc/systemd/system/peninsula-api.service
