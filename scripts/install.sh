@@ -37,6 +37,16 @@ fi
 systemctl enable postgresql
 systemctl start postgresql
 
+echo "Attente du démarrage de PostgreSQL..."
+for i in {1..30}; do
+  if sudo -u postgres pg_isready -q 2>/dev/null; then
+    echo "PostgreSQL est prêt."
+    break
+  fi
+  echo "Tentative $i/30..."
+  sleep 1
+done
+
 mkdir -p /etc/ssl/peninsula
 if [[ ! -f /etc/ssl/peninsula/peninsula.crt ]]; then
   openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
