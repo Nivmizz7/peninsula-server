@@ -23,7 +23,31 @@ REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 DB_NAME="peninsula"
 DB_USER="peninsula"
-DB_PASSWORD="peninsula_password"
+
+echo "=========================================="
+echo "INSTALLATION DE PENINSULA"
+echo "=========================================="
+echo ""
+
+# Demander le mot de passe PostgreSQL
+echo "Sécurité :"
+read -sp "Mot de passe pour l'utilisateur PostgreSQL '$DB_USER' : " DB_PASSWORD
+echo ""
+read -sp "Confirmez le mot de passe : " DB_PASSWORD_CONFIRM
+echo ""
+
+if [[ "$DB_PASSWORD" != "$DB_PASSWORD_CONFIRM" ]]; then
+  echo "Erreur : les mots de passe ne correspondent pas."
+  exit 1
+fi
+
+if [[ ${#DB_PASSWORD} -lt 8 ]]; then
+  echo "Erreur : le mot de passe doit faire au moins 8 caractères."
+  exit 1
+fi
+
+echo "✓ Mot de passe défini"
+echo ""
 
 echo "Installation des dépendances..."
 apt-get update
