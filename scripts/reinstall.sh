@@ -6,47 +6,32 @@ if [[ $EUID -ne 0 ]]; then
   exit 1
 fi
 
-APP_DIR="/opt/peninsula-api"
-PANEL_DIR="/var/www/peninsula-panel"
-DB_NAME="peninsula"
-DB_USER="peninsula"
-
 echo "=========================================="
-echo "DÉSINSTALLATION COMPLÈTE DE PENINSULA"
+echo "DÉSINSTALLATION DE NGINX ET POSTGRESQL"
 echo "=========================================="
 echo ""
 
-echo "[1/6] Arrêt des services..."
-systemctl stop peninsula-api || true
+echo "[1/4] Arrêt des services..."
 systemctl stop nginx || true
+systemctl stop postgresql || true
 
-echo "[2/6] Suppression de la base de données..."
-sudo -u postgres psql -c "DROP DATABASE IF EXISTS $DB_NAME;" || true
-sudo -u postgres psql -c "DROP USER IF EXISTS $DB_USER;" || true
+echo "[2/4] Désinstallation de Nginx..."
+apt-get remove -y nginx nginx-common || true
+apt-get purge -y nginx nginx-common || true
 
-echo "[3/6] Suppression des fichiers d'application..."
-rm -rf "$APP_DIR"
-rm -rf "$PANEL_DIR"
+echo "[3/4] Désinstallation de PostgreSQL..."
+apt-get remove -y postgresql postgresql-contrib || true
+apt-get purge -y postgresql postgresql-contrib postgresql-client || true
+rm -rf /var/lib/postgresql || true
 
-echo "[4/6] Suppression des configurations systemd et nginx..."
-rm -f /etc/systemd/system/peninsula-api.service
-rm -f /etc/nginx/sites-available/peninsula
-rm -f /etc/nginx/sites-enabled/peninsula
-systemctl daemon-reload
-
-echo "[5/6] Suppression des certificats SSL..."
-rm -rf /etc/ssl/peninsula
+echo "[4/4] Nettoyage des fichiers de configuration..."
+rm -rf /etc/nginx || true
+rm -rf /etc/postgresql || true
+apt-get autoremove -y || true
 
 echo ""
 echo "=========================================="
-echo "RÉINSTALLATION DE PENINSULA"
+echo "DÉSINSTALLATION TERMINÉE"
 echo "=========================================="
-echo ""
-
-REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-bash "$REPO_DIR/scripts/install.sh"
-
-echo ""
-echo "=========================================="
-echo "RÉINSTALLATION COMPLÈTEMENT TERMINÉE"
-echo "=========================================="
+echo "Nginx et PostgreSQL ont été complètement supprimés."
+echo "Les fichiers de Peninsula ont été conservés."
