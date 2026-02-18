@@ -1,5 +1,5 @@
 [Unit]
-Description=Peninsula API
+Description=Peninsula Server API
 After=network.target postgresql.service
 
 [Service]
