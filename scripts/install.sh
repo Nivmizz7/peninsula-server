@@ -19,7 +19,7 @@ fi
 
 APP_DIR="/opt/peninsula-api"
 PANEL_DIR="/var/www/peninsula-panel"
-REPO_DIR="$(pwd)"
+REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 DB_NAME="peninsula"
 DB_USER="peninsula"
