@@ -1,12 +1,12 @@
 * {
   box-sizing: border-box;
-  font-family: "Inter", "Segoe UI", sans-serif;
+  font-family: "MS Sans Serif", "Tahoma", sans-serif;
 }
 
 body {
   margin: 0;
-  background: #f5f7fb;
-  color: #1a1a1a;
+  background: #c0c0c0;
+  color: #000000;
 }
 
 .container {
@@ -16,10 +16,10 @@ body {
 }
 
 .card {
-  background: #ffffff;
-  padding: 28px;
-  border-radius: 16px;
-  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
+  background: #d4d0c8;
+  padding: 18px;
+  border: 2px solid #808080;
+  box-shadow: inset -1px -1px 0 #ffffff, inset 1px 1px 0 #404040;
 }
 
 h1, h2, h3 {
@@ -30,33 +30,35 @@ label {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  font-size: 14px;
+  font-size: 12px;
   margin-bottom: 12px;
 }
 
 input, select {
-  padding: 10px 12px;
-  border-radius: 10px;
-  border: 1px solid #d0d7e2;
+  padding: 6px 8px;
+  border: 2px solid #808080;
+  background: #ffffff;
+  box-shadow: inset -1px -1px 0 #ffffff, inset 1px 1px 0 #404040;
 }
 
 button {
-  padding: 10px 16px;
-  border-radius: 10px;
-  border: none;
-  background: #2563eb;
-  color: white;
-  font-weight: 600;
+  padding: 6px 12px;
+  border: 2px solid #808080;
+  background: #d4d0c8;
+  color: #000000;
+  font-weight: 700;
   cursor: pointer;
+  box-shadow: inset -1px -1px 0 #ffffff, inset 1px 1px 0 #404040;
 }
 
 button.secondary {
-  background: #e2e8f0;
-  color: #1f2937;
+  background: #d4d0c8;
+  color: #000000;
 }
 
 button.danger {
-  background: #dc2626;
+  background: #c0504d;
+  color: #ffffff;
 }
 
 .header {
@@ -73,9 +75,10 @@ button.danger {
 }
 
 .panel {
-  background: #f8fafc;
-  padding: 16px;
-  border-radius: 12px;
+  background: #d4d0c8;
+  padding: 12px;
+  border: 2px solid #808080;
+  box-shadow: inset -1px -1px 0 #ffffff, inset 1px 1px 0 #404040;
 }
 
 .hidden {
@@ -85,16 +88,18 @@ button.danger {
 table {
   width: 100%;
   border-collapse: collapse;
+  background: #ffffff;
+  border: 2px solid #808080;
 }
 
 table th, table td {
-  padding: 10px;
-  border-bottom: 1px solid #e2e8f0;
+  padding: 6px 8px;
+  border-bottom: 1px solid #808080;
   text-align: left;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .error {
-  color: #dc2626;
-  font-size: 13px;
+  color: #800000;
+  font-size: 12px;
 }
