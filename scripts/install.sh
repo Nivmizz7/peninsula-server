@@ -35,15 +35,20 @@ if ! command -v node >/dev/null 2>&1; then
 fi
 
 systemctl enable postgresql
-systemctl start postgresql
+systemctl restart postgresql
 
 echo "Attente du démarrage de PostgreSQL..."
-for i in {1..30}; do
+sleep 2
+
+# Redémarrer l'instance PostgreSQL spécifique
+systemctl restart postgresql@16-main 2>/dev/null || true
+
+for i in {1..60}; do
   if sudo -u postgres pg_isready -q 2>/dev/null; then
     echo "PostgreSQL est prêt."
     break
   fi
-  echo "Tentative $i/30..."
+  echo "Tentative $i/60..."
   sleep 1
 done
 
