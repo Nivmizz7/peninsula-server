@@ -81,7 +81,8 @@ sed -i "s|JWT_ACCESS_SECRET=.*|JWT_ACCESS_SECRET=$(openssl rand -hex 24)|" .env
 sed -i "s|JWT_REFRESH_SECRET=.*|JWT_REFRESH_SECRET=$(openssl rand -hex 24)|" .env
 sed -i "s|CORS_ORIGIN=.*|CORS_ORIGIN=*|" .env
 
-npm install --production
+npm install --omit=dev
+npm audit fix --force 2>/dev/null || true
 npm run seed:admin
 
 cp "$REPO_DIR/config/peninsula-api.service" /etc/systemd/system/peninsula-api.service
