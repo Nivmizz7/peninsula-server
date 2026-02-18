@@ -1,4 +1,4 @@
-# Peninsula Server (V0)
+# Peninsula Server (v0)
 
 ## Structure
 
