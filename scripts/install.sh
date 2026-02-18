@@ -60,6 +60,10 @@ if [[ ! -f /etc/ssl/peninsula/peninsula.crt ]]; then
     -subj "/CN=peninsula.local" >/dev/null 2>&1
 fi
 
+chmod 644 /etc/ssl/peninsula/peninsula.crt
+chmod 600 /etc/ssl/peninsula/peninsula.key
+chown -R root:root /etc/ssl/peninsula
+
 sudo -u postgres psql -tc "SELECT 1 FROM pg_database WHERE datname = '$DB_NAME'" | grep -q 1 || sudo -u postgres psql -c "CREATE DATABASE $DB_NAME;"
 sudo -u postgres psql -tc "SELECT 1 FROM pg_roles WHERE rolname = '$DB_USER'" | grep -q 1 || sudo -u postgres psql -c "CREATE USER $DB_USER WITH PASSWORD '$DB_PASSWORD';"
 sudo -u postgres psql -c "ALTER DATABASE $DB_NAME OWNER TO $DB_USER;"
@@ -86,6 +90,7 @@ systemctl enable peninsula-api
 systemctl restart peninsula-api
 
 cp "$REPO_DIR/config/nginx-peninsula.conf" /etc/nginx/sites-available/peninsula
+rm -f /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 ln -sf /etc/nginx/sites-available/peninsula /etc/nginx/sites-enabled/peninsula
 nginx -t
 systemctl reload nginx
